@@ -1,42 +1,83 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using OpenAI_API;
+using System.Linq;
+using System.Text.RegularExpressions;
 
-namespace CyberBot
+class Program
 {
-    class Program
+    static void Main(string[] args)
     {
-        static async Task Main(string[] args)
+        Console.WriteLine("Welcome to the Cybersecurity Chatbot!");
+        Console.WriteLine("Type 'help' for a list of commands.");
+
+        while (true)
         {
-            // Opening message
-            Console.WriteLine("Hello, Welcome to Cybersecurity Awareness Bot, CAB for short. How may I assist you today?");
+            Console.Write("> ");
+            string userInput = Console.ReadLine().ToLower();
 
-            // OpenAI API key (replace with your actual API key)
-            string apiKey = " ";
-            var openai = new OpenAIAPI(apiKey);
-            // Simplified while loop
-            Console.WriteLine("What would you like to know about Cybersecurity? (Type 'Exit' to quit)");
-            string userQuestion;
-
-            while ((userQuestion = Console.ReadLine()) != null &&
-                   !userQuestion.Equals("Exit", StringComparison.OrdinalIgnoreCase))
+            if (userInput == "exit")
             {
-                string response = await GetResponseFromOpenAI(openai, userQuestion);
-                Console.WriteLine(response);
-                Console.WriteLine("\nWhat would you like to know about Cybersecurity? (Type 'Exit' to quit)");
+                Console.WriteLine("Goodbye! Stay secure!");
+                break;
             }
 
-            static async Task<string> GetResponseFromOpenAI(OpenAIAPI openai, string userQuestion)
-        {
-            var completionRequest = new CompletionRequest
-            {
-                Prompt = userQuestion,
-                MaxTokens = 150
-            };
-
-            var completionResult = await openai.Completions.CreateCompletionAsync(completionRequest);
-            return completionResult.Completions[0].Text.Trim();
+            string response = GetResponse(userInput);
+            Console.WriteLine(response);
         }
+    }
+
+    static string GetResponse(string userInput)
+    {
+        switch (userInput)
+        {
+            case "help":
+                return "Commands: help, tips, phishing, malware, password, checklink, exit";
+            case "tips":
+                return "Cybersecurity Tips:\n1. Use strong passwords.\n2. Enable two-factor authentication.\n3. Keep your software updated.";
+            case "phishing":
+                return "Phishing is a type of attack where attackers trick you into revealing sensitive information.";
+            case "malware":
+                return "Malware is malicious software designed to harm or exploit devices, networks, or data.";
+            case "password":
+                Console.WriteLine("Type your password to check its strength:");
+                string password = Console.ReadLine();
+                return CheckPasswordStrength(password);
+            case "checklink":
+                Console.WriteLine("Enter a URL to check for phishing:");
+                string url = Console.ReadLine();
+                return CheckPhishingLink(url);
+            default:
+                return "I don't understand that command. Type 'help' for a list of commands.";
+        }
+    }
+
+    static string CheckPasswordStrength(string password)
+    {
+        int strength = 0;
+
+        if (password.Length >= 8) strength++;
+        if (password.Any(char.IsUpper)) strength++;
+        if (password.Any(char.IsLower)) strength++;
+        if (password.Any(char.IsDigit)) strength++;
+        if (password.Any(ch => !char.IsLetterOrDigit(ch))) strength++;
+
+        return strength switch
+        {
+            5 => "Your password is very strong!",
+            4 => "Your password is strong.",
+            3 => "Your password is moderate.",
+            2 => "Your password is weak.",
+            _ => "Your password is very weak."
+        };
+    }
+
+    static string CheckPhishingLink(string url)
+    {
+        // Basic regex to detect suspicious URLs
+        var phishingPatterns = new[] { "login", "account", "verify", "password" };
+        bool isSuspicious = phishingPatterns.Any(pattern => Regex.IsMatch(url, pattern, RegexOptions.IgnoreCase));
+
+        return isSuspicious
+            ? "Warning: This link looks suspicious. Do not enter any personal information!"
+            : "This link looks safe, but always be cautious.";
     }
 }
