@@ -1,0 +1,38 @@
+name: .NET CI Pipeline
+
+# Trigger the workflow on push or pull request to the main branch
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+# Jobs to run
+jobs:
+  build-and-test:
+    runs-on: windows-latest  # Use a Windows runner
+
+    steps:
+      # Check out the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up .NET SDK
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'  # Specify your .NET version (e.g., 6.0, 7.0, etc.)
+
+      # Restore dependencies
+      - name: Restore dependencies
+        run: dotnet restore
+
+      # Build the project
+      - name: Build project
+        run: dotnet build --configuration Release --no-restore
+
+      # Run tests
+      - name: Run tests
+        run: dotnet test --no-build --verbosity normal
