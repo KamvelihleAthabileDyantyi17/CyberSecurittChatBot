@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Speech.Synthesis;
 
 class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Welcome to the Cybersecurity Chatbot!");
+       // The voice to be called out
+         SpeechSynthesizer _SS = new SpeechSynthesizer();
+
+        _SS.Speak("Welcome to the Cybersecurity Chatbot!");
         Console.WriteLine("Type 'help' for a list of commands.");
 
         while (true)
@@ -25,6 +29,7 @@ class Program
         }
     }
 
+    //
     static string GetResponse(string userInput)
     {
         switch (userInput)
