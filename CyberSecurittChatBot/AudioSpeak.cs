@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using NAudio.Wave;
 
 public class AudioPlayer
