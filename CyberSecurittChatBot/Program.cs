@@ -74,7 +74,7 @@ Welcome to the Cybersecurity Chatbot!.");
                 string password = Console.ReadLine();
                 return CheckPasswordStrength(password);
 
-            // Check for phishing link
+            //Check for phishing link        //WORK IN PROGRESS
             case "checklink":
                 Console.WriteLine("Enter a URL to check for phishing:");
                 string url = Console.ReadLine();
@@ -174,7 +174,7 @@ Welcome to the Cybersecurity Chatbot!.");
         };
     }
 
-    // Method to check if a URL is suspicious
+    Method to check if a URL is suspicious      // WORK IN PROGRESS
     static string CheckPhishingLink(string url)
     {
         var phishingPatterns = new[] { "login", "account", "verify", "password" };
@@ -182,6 +182,6 @@ Welcome to the Cybersecurity Chatbot!.");
 
         return isSuspicious
             ? "Warning: This link looks suspicious. Do not enter any personal information!"
-            : "This link looks safe, but always be cautious.";
+            : "This link looks safe, but always be cautious."; 
     }
 }
