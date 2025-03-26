@@ -6,6 +6,7 @@ class Program
 {
     static void Main(string[] args)
     {
+        // Display ASCII art and welcome message
         Console.WriteLine(@"
         /\
         |==|
@@ -23,12 +24,14 @@ class Program
 Welcome to the Cybersecurity Chatbot!.");
 
         // Play custom audio at the beginning
-        AudioPlayer audioPlayer = new AudioPlayer("Audio/Chatbot_voice.mp3");
+        AudioPlayer audioPlayer = new AudioPlayer(@"C:\Users\kdynt\source\repos\CyberSecurityAI\CyberSecurittChatBot\Chatbot_voice.mp3");
         audioPlayer.Play();
 
+        // Display initial instructions
         Console.WriteLine("Welcome to the Cybersecurity Chatbot!");
         Console.WriteLine("Choose a difficulty: beginner, intermediate, advanced, or type 'password' to check your password strength.");
 
+        // Main loop to handle user input
         while (true)
         {
             Console.Write("> ");
@@ -45,10 +48,12 @@ Welcome to the Cybersecurity Chatbot!.");
         }
     }
 
+    // Method to get responses based on user input
     static string GetResponse(string userInput)
     {
         switch (userInput)
         {
+            // Difficulty levels
             case "beginner":
                 return "Beginner Level:\nChoose a question (1-5):\n1. What is cybersecurity?\n2. What is a strong password?\n3. What is phishing?\n4. Why should you update software?\n5. How do you spot fake websites?";
 
@@ -94,21 +99,25 @@ Welcome to the Cybersecurity Chatbot!.");
             case "advanced 5":
                 return "Answer: Prevent SQL injection by using parameterized queries and avoiding raw SQL inputs.";
 
+            // Check password strength
             case "password":
                 Console.WriteLine("Type your password to check its strength:");
                 string password = Console.ReadLine();
                 return CheckPasswordStrength(password);
 
+            // Check for phishing link
             case "checklink":
                 Console.WriteLine("Enter a URL to check for phishing:");
                 string url = Console.ReadLine();
                 return CheckPhishingLink(url);
 
+            // Default response for unrecognized commands
             default:
                 return "I don't understand that command. Type 'beginner', 'intermediate', 'advanced', 'password', or 'exit'.";
         }
     }
 
+    // Method to check password strength
     static string CheckPasswordStrength(string password)
     {
         int strength = 0;
@@ -129,6 +138,7 @@ Welcome to the Cybersecurity Chatbot!.");
         };
     }
 
+    // Method to check if a URL is suspicious
     static string CheckPhishingLink(string url)
     {
         var phishingPatterns = new[] { "login", "account", "verify", "password" };
