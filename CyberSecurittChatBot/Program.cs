@@ -223,6 +223,11 @@ Welcome to the Cybersecurity Chatbot!");
             { "virus", "Computer viruses are malicious programs that can replicate themselves and spread to other computers. They can corrupt files, steal information, or take control of your system. Always use updated antivirus software for protection." },
             { "hacker", "A hacker is someone who exploits computer systems or networks to gain unauthorized access. While the term often has negative connotations, ethical hackers (or 'white hat' hackers) help identify security vulnerabilities to improve security." },
             { "firewall", "A firewall is a network security device that monitors and filters incoming and outgoing traffic based on predetermined security rules, establishing a barrier between trusted and untrusted networks." },
+            { "data breach", "A data breach occurs when protected information is accessed without authorization. This can expose sensitive data like personal records, financial details, or credentials. Organizations should have incident response plans ready for this scenario." },
+            { "encryption", "Encryption is the process of converting information into code to prevent unauthorized access. It transforms readable data (plaintext) into an unreadable format (ciphertext) that can only be decrypted with the correct key." },
+            { "vpn", "A Virtual Private Network (VPN) creates an encrypted connection over a less secure network. It allows you to securely access the internet by routing your connection through a server operated by the VPN service, hiding your real IP address and location." },
+            { "2fa", "Two-Factor Authentication (2FA) adds an extra security layer beyond just a password. It requires a second verification method, typically something you have (like a phone) or something you are (biometrics), making unauthorized access significantly harder." },
+            { "mfa", "Multi-Factor Authentication (MFA) requires two or more verification methods to gain access to a resource, typically combining something you know (password), something you have (security token), and something you are (biometric verification)." }
         };
 
         foreach (var keyword in keywordResponses.Keys)
